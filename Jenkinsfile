@@ -23,3 +23,5 @@ pipeline{
           sh 'kubectl apply -f trend-service.yaml'
         }
       }
+     }
+}
