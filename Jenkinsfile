@@ -2,7 +2,7 @@ pipeline{
   agent any
 
     stages {
-      stage('build docker image') {
+      stage('Build docker image') {
         steps {
           sh 'docker build -t trend-nginx .'
           sh 'docker run -d -p 3000:80 trend-nginx'
