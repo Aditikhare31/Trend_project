@@ -1,81 +1,167 @@
-**React application CI/CD pipeline with Monitoring**
-This project demonstrate complete Deployment of an application using 
-•	Jenkins
-•	Docker and DockerHub
-•	Kubernetes
-•	Grafana
-•	Prometheus
-•	Node Exporter
-The pipeline automatically build, push and deploy the application and also monitors server health and application availability.
-Tools and Technologies
-•	Jenkins
-•	Docker and DockerHub
-•	Kubernetes
-•	Grafana
-•	Prometheus
-•	Node Exporter
-•	GitHub
-•	AWS EC2
+🚀 React Application CI/CD Pipeline with Monitoring
 
-Step 1: Create terraform script for creating Security groups, VPC, IAM user and Ec2 instance with userdata for installing Jenkins
-Main.tf is present in git repo
-This is the server created by terraform script
-![EC2 Instance](https://github.com/Aditikhare31/Trend_project/blob/main/trend_screenshots/ec2_instance.png)
- 
+This project demonstrates the complete deployment of a React application using a CI/CD pipeline along with monitoring and observability tools.
+
+📌 Project Overview
+
+The pipeline automates:
+Building the application
+Creating and pushing Docker images
+Deploying the application on Kubernetes (EKS)
+Monitoring system health and application performance
+
+🛠️ Tools & Technologies Used
+
+Jenkins
+Docker & DockerHub
+Kubernetes (EKS)
+Terraform
+Prometheus
+Grafana
+Node Exporter
+GitHub
+AWS EC2
+
+📖 Step-by-Step Implementation
+🔹 Step 1: Infrastructure Setup using Terraform
+
+Created Terraform scripts (main.tf) to provision:
+VPC
+![EC2 Instance](https://github.com/Aditikhare31/Trend_project/blob/main/trend_screenshots/VPC.png)
+
+Security Groups
+IAM User
+
+EC2 Instance (with Jenkins installation via user data)
+
+Terraform automatically provisions the required infrastructure.
+
+EC2 Instance Created
+
+
 Security Group
-![EC2 Instance](https://github.com/Aditikhare31/Trend_project/blob/main/trend_screenshots/security_groups.png)
 
-IAM User 
-![EC2 Instance](https://github.com/Aditikhare31/Trend_project/blob/main/trend_screenshots/IAM_user.png)
 
-Go to IAM role and create a IAM role for Ec2 instance
-![EC2 Instance](https://github.com/Aditikhare31/Trend_project/blob/main/trend_screenshots/IAM_role.png)
+IAM User
 
-Step 2: Login to server, install Docker and create Dockerfile
 
-Step 3: Setup EKS cluster using CloudShell, create deployment.yaml and service.yaml file
-Deployment.yaml- will create pod and take image from dockerhub
-Service.yaml- will create loadbalancer
+Created an IAM Role and attached it to the EC2 instance for required permissions.
 
-Step 4: Access Jenkins via http://<public_ip>:8080 and login to Jenkins
- 
-Create new item and create pipeline
-![EC2 Instance](https://github.com/Aditikhare31/Trend_project/blob/main/trend_screenshots/jenkins_pipeline_created.png)
+🔹 Step 2: Docker Setup
 
-Add GitHub repo to the pipeline
-![EC2 Instance](https://github.com/Aditikhare31/Trend_project/blob/main/trend_screenshots/Jenkins_pipeline_config.png)
+Logged into the EC2 instance
 
-Go to manage Jenkins-> plugins-> available plugin-> and install AWS credential plugin
-![EC2 Instance](https://github.com/Aditikhare31/Trend_project/blob/main/trend_screenshots/jenkins_plugins.png)
+Installed Docker
 
-Pipeline execution
-![EC2 Instance](https://github.com/Aditikhare31/Trend_project/blob/main/trend_screenshots/pipeline_execution_1.png)
-![EC2 Instance](https://github.com/Aditikhare31/Trend_project/blob/main/trend_screenshots/pipeline_execution_2.png)
- 
- 
-Step 5- Check if resources are created
-![EC2 Instance](https://github.com/Aditikhare31/Trend_project/blob/main/trend_screenshots/docker_image.png)
-![EC2 Instance](https://github.com/Aditikhare31/Trend_project/blob/main/trend_screenshots/docker_container.png)
-![EC2 Instance](https://github.com/Aditikhare31/Trend_project/blob/main/trend_screenshots/kubectl_resources.png)
- 
- 
-Step 6- Login to server and install node exporter, grafana and Prometheus
-Once you install Prometheus, open Prometheus configuration file and add node exporter
-nano /etc/systemd/system/prometheus.service
-![EC2 Instance](https://github.com/Aditikhare31/Trend_project/blob/main/trend_screenshots/prometheus_config.png)
- 
-Access node exporter via http://<public_ip>:9100/metrics
-Access Prometheus via http://<public_ip>:9090
-We had to run application on 3000 port and grafana also runs on 3000 port, in order to run application on 3000 port, changed the grafana default port by changing the config file
+Created a Dockerfile for the React application
+
+Built and tested the Docker image locally
+
+🔹 Step 3: Kubernetes (EKS) Setup
+
+Created an EKS cluster using AWS CloudShell
+
+Defined Kubernetes manifests:
+
+deployment.yaml
+
+Creates pods using Docker image from DockerHub
+
+service.yaml
+
+Exposes the application using a LoadBalancer
+
+🔹 Step 4: Jenkins CI/CD Pipeline Setup
+
+Accessed Jenkins:
+
+http://<public_ip>:8080
+
+Created a Pipeline Job
+
+Connected GitHub repository to Jenkins
+
+Pipeline Configuration
+
+
+Installed required plugin:
+
+AWS Credentials Plugin
+
+Plugin Installation
+
+
+🔹 Step 5: Pipeline Execution
+
+The pipeline performs:
+
+Build Docker Image
+
+Push Image to DockerHub
+
+Deploy to Kubernetes (EKS)
+
+Pipeline Execution Screenshots
+
+
+
+
+🔹 Step 6: Verify Deployment
+
+Verified Docker resources:
+
+Images
+
+Containers
+
+Verified Kubernetes resources:
+
+Pods
+
+Services
+
+Verification
+
+
+
+
+
+
+🔹 Step 7: Monitoring Setup
+
+Installed and configured:
+
+Node Exporter
+
+Prometheus
+
+Grafana
+
+📊 Prometheus Configuration
+
+Edited Prometheus service file:
+
+sudo nano /etc/systemd/system/prometheus.service
+
+Added Node Exporter target
+
+🔹 Step 8: Access Monitoring Tools
+
+Node Exporter:
+
+http://<public_ip>:9100/metrics
+
+Prometheus:
+
+http://<public_ip>:9090
+🔹 Step 9: Grafana Configuration
+
+Grafana default port (3000) conflicted with application
+
+Updated Grafana port to 3001
+
 sudo nano /etc/grafana/grafana.ini
-changed 3000 port to 3001
-![EC2 Instance](https://github.com/Aditikhare31/Trend_project/blob/main/trend_screenshots/grafana_config.png)
 
-Access application via Loadbalancer ARN
-![EC2 Instance](https://github.com/Aditikhare31/Trend_project/blob/main/trend_screenshots/loadbalancer_arn.png)
+🔹 Step 10: Application Access
 
-
-
-
-
-
+Application is exposed via Kubernetes LoadBalancer
