@@ -135,7 +135,15 @@ Updated Grafana port to 3001
 sudo nano /etc/grafana/grafana.ini
 ![EC2 Instance](https://github.com/Aditikhare31/Trend_project/blob/main/trend_screenshots/grafana_config.png)
 
-🔹 Step 10: Application Access
+🔹 Step 10: Configure Monitoring
+Access Grafana: http://<public_ip>:3001
+Add Prometheus to the Grafana in data sources
+![EC2 Instance](https://github.com/Aditikhare31/Trend_project/blob/main/trend_screenshots/grafana_data_sources.png)
+
+And export the dashboard
+![EC2 Instance](https://github.com/Aditikhare31/Trend_project/blob/main/trend_screenshots/Monitoring.png)
+
+🔹 Step 11: Application Access
 
 Application is exposed via Kubernetes LoadBalancer
 ![EC2 Instance](https://github.com/Aditikhare31/Trend_project/blob/main/trend_screenshots/loadbalancer_arn.png)
