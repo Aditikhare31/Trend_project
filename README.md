@@ -79,6 +79,9 @@ AWS Credentials Plugin
 Plugin Installation
 ![EC2 Instance](https://github.com/Aditikhare31/Trend_project/blob/main/trend_screenshots/jenkins_plugins.png)
 
+Add webhooks in GitHub repo
+![EC2 Instance](https://github.com/Aditikhare31/Trend_project/blob/main/trend_screenshots/webhooks.png)
+
 🔹 Step 5: Pipeline Execution
 
 The pipeline performs:
